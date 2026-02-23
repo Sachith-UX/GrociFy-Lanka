@@ -1,0 +1,29 @@
+# General
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Cache files
+.cache/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# VSCode files
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
