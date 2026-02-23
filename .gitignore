@@ -1,29 +1,24 @@
-# General
+# Flutter/Dart
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+# This file is used to define files and directories that should be ignored by git.
 
-# Cache files
-.cache/
+# Flutter related files
+.flutter-plugins
+.flutter-plugins-dependencies
+ flutter_export_environment.sh
+ .metadata
+.buildlog
 
-# Logs
-*.log
+# Android related files
+.gradle/
+local.properties
+*.iml
 
-# Environment variables
-.env
+# iOS related files
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Runner.xcworkspace/xcuserdata/
 
-# VSCode files
-.vscode/
-
-# macOS system files
-.DS_Store
-
-# Node modules
-node_modules/
-
-# Build output
-dist/
-build/
+# Web related files
+flutter_build/
