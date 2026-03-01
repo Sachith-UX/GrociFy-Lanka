@@ -1,0 +1,24 @@
+# Flutter/Dart
+
+# This file is used to define files and directories that should be ignored by git.
+
+# Flutter related files
+.flutter-plugins
+.flutter-plugins-dependencies
+ flutter_export_environment.sh
+ .metadata
+.buildlog
+
+# Android related files
+.gradle/
+local.properties
+*.iml
+
+# iOS related files
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Runner.xcworkspace/xcuserdata/
+
+# Web related files
+flutter_build/
