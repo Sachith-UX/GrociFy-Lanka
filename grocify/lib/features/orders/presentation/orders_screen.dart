@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/widgets/empty_state.dart';
-import '../../../shared/widgets/loading_shimmer.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/utils/formatters.dart';
+import 'package:grocify/shared/widgets/empty_state.dart';
+import 'package:grocify/shared/widgets/loading_shimmer.dart';
 import 'widgets/order_card.dart';
-import 'data/orders_provider.dart';
+import 'package:grocify/features/orders/data/orders_provider.dart';
 
 class OrdersScreen extends ConsumerWidget {
   const OrdersScreen({super.key});
@@ -19,14 +19,8 @@ class OrdersScreen extends ConsumerWidget {
         title: const Text('My Orders'),
       ),
       body: ordersState.isLoading
-          ? const LoadingShimmer(
-              child: Column(
-                children: [
-                  OrderCardSkeleton(),
-                  OrderCardSkeleton(),
-                  OrderCardSkeleton(),
-                ],
-              ),
+          ? ListShimmer(
+              itemBuilder: (context, index) => const OrderCardSkeleton(),
             )
           : ordersState.error != null
               ? Center(

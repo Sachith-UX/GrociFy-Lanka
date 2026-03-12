@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../shared/models/user_model.dart';
 
 class ProfileState {
-  final UserModel? user;
+  final User? user;
   final bool isLoading;
   final String? error;
 
@@ -13,7 +13,7 @@ class ProfileState {
   });
 
   ProfileState copyWith({
-    UserModel? user,
+    User? user,
     bool? isLoading,
     String? error,
   }) {
@@ -38,15 +38,16 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       await Future.delayed(const Duration(seconds: 1));
 
       // Mock user data
-      final mockUser = UserModel(
+      final mockUser = User(
         id: 'user1',
+        phoneNumber: '+94 77 123 4567',
         name: 'John Doe',
         email: 'john.doe@example.com',
-        phone: '+94 77 123 4567',
-        profileImageUrl: null,
-        createdAt: DateTime.now().subtract(const Duration(days: 30)),
-        isEmailVerified: true,
+        profilePhotoUrl: null,
+        addresses: [],
         isPhoneVerified: true,
+        createdAt: DateTime.now().subtract(const Duration(days: 30)),
+        updatedAt: DateTime.now().subtract(const Duration(days: 1)),
       );
 
       state = state.copyWith(user: mockUser, isLoading: false);
@@ -58,7 +59,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  Future<void> updateProfile(UserModel updatedUser) async {
+  Future<void> updateProfile(User updatedUser) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {

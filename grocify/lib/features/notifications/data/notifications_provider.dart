@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../shared/models/notification_model.dart';
+import 'package:grocify/shared/models/notification_model.dart';
 
 class NotificationsState {
   final List<NotificationModel> notifications;

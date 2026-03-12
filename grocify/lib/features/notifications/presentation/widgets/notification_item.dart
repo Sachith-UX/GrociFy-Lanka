@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/models/notification_model.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/utils/formatters.dart';
+import 'package:grocify/shared/models/notification_model.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({
@@ -111,6 +111,7 @@ class NotificationItem extends StatelessWidget {
       case NotificationType.system:
         return Icons.info;
     }
+
   }
 
   Color _getIconColor(BuildContext context) {
@@ -124,6 +125,7 @@ class NotificationItem extends StatelessWidget {
       case NotificationType.system:
         return Colors.purple;
     }
+
   }
 }
 

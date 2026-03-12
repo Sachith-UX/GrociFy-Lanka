@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/constants/app_sizes.dart';
-import '../../shared/widgets/bottom_nav_bar.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/shared/widgets/bottom_nav_bar.dart';
 import 'widgets/banner_carousel.dart';
 import 'widgets/category_grid.dart';
 import 'widgets/deals_section.dart';

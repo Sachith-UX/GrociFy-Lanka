@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/constants/app_sizes.dart';
-import '../../core/constants/app_strings.dart';
-import '../../core/utils/validators.dart';
-import '../../shared/widgets/custom_button.dart';
-import '../../shared/widgets/custom_text_field.dart';
-import '../data/auth_provider.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/constants/app_strings.dart';
+import 'package:grocify/core/utils/validators.dart';
+import 'package:grocify/shared/widgets/custom_button.dart';
+import 'package:grocify/shared/widgets/custom_text_field.dart';
+import 'package:grocify/features/auth/data/auth_provider.dart';
 
 class ProfileSetupScreen extends ConsumerStatefulWidget {
   const ProfileSetupScreen({super.key});

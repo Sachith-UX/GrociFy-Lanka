@@ -67,7 +67,7 @@ extension DateTimeExtensions on DateTime {
 }
 
 extension ListExtensions<T> on List<T> {
-  List<T> get reversed => List<T>.from(this)..reverse();
+  List<T> get reversed => List<T>.from(this.reversed);
 
   T? get firstOrNull => isNotEmpty ? first : null;
   T? get lastOrNull => isNotEmpty ? last : null;

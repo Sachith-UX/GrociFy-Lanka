@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
-import 'app_sizes.dart';
+import 'package:grocify/core/constants/app_colors.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
@@ -73,7 +73,7 @@ class AppTheme {
         vertical: AppSizes.paddingMD,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: AppColors.cardBackground,
       elevation: AppSizes.cardElevation,
       shape: RoundedRectangleBorder(
@@ -152,7 +152,7 @@ class AppTheme {
         vertical: AppSizes.paddingMD,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: AppColors.gray800,
       elevation: AppSizes.cardElevation,
       shape: RoundedRectangleBorder(

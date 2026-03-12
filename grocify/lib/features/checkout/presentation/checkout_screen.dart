@@ -62,7 +62,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
             CustomTextField(
               controller: _nameController,
-              labelText: 'Full Name',
+              label: 'Full Name',
               validator: (value) {
                 if (value?.isEmpty ?? true) {
                   return 'Please enter your full name';
@@ -75,7 +75,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
             CustomTextField(
               controller: _phoneController,
-              labelText: 'Phone Number',
+              label: 'Phone Number',
               keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value?.isEmpty ?? true) {
@@ -92,7 +92,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
             CustomTextField(
               controller: _addressController,
-              labelText: 'Delivery Address',
+              label: 'Delivery Address',
               maxLines: 3,
               validator: (value) {
                 if (value?.isEmpty ?? true) {
@@ -106,9 +106,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
             CustomTextField(
               controller: _instructionsController,
-              labelText: 'Delivery Instructions (Optional)',
+              label: 'Delivery Instructions (Optional)',
               maxLines: 2,
-              hintText: 'e.g., Ring the doorbell, leave at door',
+              hint: 'e.g., Ring the doorbell, leave at door',
             ),
 
             const SizedBox(height: AppSizes.lg),

@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final ButtonVariant variant;
+  final Color? backgroundColor;
   final ButtonSize size;
   final bool isLoading;
   final bool isDisabled;
@@ -31,6 +32,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.variant = ButtonVariant.primary,
+    this.backgroundColor,
     this.size = ButtonSize.medium,
     this.isLoading = false,
     this.isDisabled = false,
@@ -62,7 +64,7 @@ class CustomButton extends StatelessWidget {
     switch (variant) {
       case ButtonVariant.primary:
         return ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.primary,
+          backgroundColor: backgroundColor ?? theme.colorScheme.primary,
           foregroundColor: theme.colorScheme.onPrimary,
           disabledBackgroundColor: theme.colorScheme.onSurface.withOpacity(0.12),
           disabledForegroundColor: theme.colorScheme.onSurface.withOpacity(0.38),
@@ -75,7 +77,7 @@ class CustomButton extends StatelessWidget {
 
       case ButtonVariant.secondary:
         return ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.secondary,
+          backgroundColor: backgroundColor ?? theme.colorScheme.secondary,
           foregroundColor: theme.colorScheme.onSecondary,
           disabledBackgroundColor: theme.colorScheme.onSurface.withOpacity(0.12),
           disabledForegroundColor: theme.colorScheme.onSurface.withOpacity(0.38),

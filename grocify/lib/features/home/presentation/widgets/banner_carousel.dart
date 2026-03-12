@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../../../core/constants/app_sizes.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
 
 class BannerCarousel extends StatefulWidget {
   const BannerCarousel({super.key});

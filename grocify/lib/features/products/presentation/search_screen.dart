@@ -4,7 +4,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../shared/models/product_model.dart';
 import '../../../shared/widgets/loading_shimmer.dart';
 import '../../../shared/widgets/product_card.dart';
-import 'data/products_provider.dart';
+import '../data/products_provider.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});

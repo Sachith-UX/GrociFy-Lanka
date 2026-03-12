@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
   final int? minLines;
   final int? maxLength;
   final Widget? prefixIcon;
+  final BoxConstraints? prefixIconConstraints;
   final Widget? suffixIcon;
   final VoidCallback? onSuffixIconPressed;
   final ValueChanged<String>? onChanged;
@@ -41,6 +42,7 @@ class CustomTextField extends StatefulWidget {
     this.minLines,
     this.maxLength,
     this.prefixIcon,
+    this.prefixIconConstraints,
     this.suffixIcon,
     this.onSuffixIconPressed,
     this.onChanged,
@@ -110,6 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintText: widget.hint,
             errorText: widget.errorText,
             prefixIcon: widget.prefixIcon,
+            prefixIconConstraints: widget.prefixIconConstraints,
             suffixIcon: _buildSuffixIcon(),
             filled: true,
             fillColor: widget.enabled
@@ -157,7 +160,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 width: 1,
               ),
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: AppSizes.paddingMD,
               vertical: AppSizes.paddingMD,
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'app_sizes.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
 
 class AppTextStyles {
   // Headings

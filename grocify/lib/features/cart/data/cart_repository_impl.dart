@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import '../../../shared/models/cart_item_model.dart';
-import 'cart_repository.dart';
+import 'package:grocify/shared/models/cart_item_model.dart';
+import 'package:grocify/features/cart/domain/cart_repository.dart';
 
 class CartRepositoryImpl implements CartRepository {
   static const String _cartBoxName = 'cart_box';

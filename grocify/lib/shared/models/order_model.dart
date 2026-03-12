@@ -1,8 +1,11 @@
+import 'address_model.dart';
+
 enum OrderStatus {
   pending,
   confirmed,
   preparing,
   ready,
+  outForDelivery,
   pickedUp,
   delivered,
   cancelled,
@@ -19,6 +22,8 @@ extension OrderStatusExtension on OrderStatus {
         return 'Preparing';
       case OrderStatus.ready:
         return 'Ready for Pickup';
+      case OrderStatus.outForDelivery:
+        return 'Out for Delivery';
       case OrderStatus.pickedUp:
         return 'Picked Up';
       case OrderStatus.delivered:

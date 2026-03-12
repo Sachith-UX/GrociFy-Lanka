@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/models/order_model.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/utils/formatters.dart';
+import 'package:grocify/shared/models/order_model.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -10,7 +10,7 @@ class OrderCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final OrderModel order;
+  final Order order;
   final VoidCallback onTap;
 
   @override
@@ -71,7 +71,7 @@ class OrderCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    Formatters.formatCurrency(order.totalAmount),
+                    Formatters.formatCurrency(order.total),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.primary,
@@ -113,9 +113,17 @@ class OrderCard extends StatelessWidget {
         backgroundColor = Colors.purple.withOpacity(0.1);
         textColor = Colors.purple;
         break;
+      case OrderStatus.ready:
+        backgroundColor = Colors.teal.withOpacity(0.1);
+        textColor = Colors.teal;
+        break;
       case OrderStatus.outForDelivery:
         backgroundColor = Colors.indigo.withOpacity(0.1);
         textColor = Colors.indigo;
+        break;
+      case OrderStatus.pickedUp:
+        backgroundColor = Colors.cyan.withOpacity(0.1);
+        textColor = Colors.cyan;
         break;
       case OrderStatus.delivered:
         backgroundColor = Colors.green.withOpacity(0.1);

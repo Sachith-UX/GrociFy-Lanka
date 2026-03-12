@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/widgets/custom_button.dart';
-import '../../../shared/widgets/empty_state.dart';
-import 'widgets/cart_item_tile.dart';
-import 'data/cart_provider.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/utils/formatters.dart';
+import 'package:grocify/shared/widgets/custom_button.dart';
+import 'package:grocify/shared/widgets/empty_state.dart';
+import 'package:grocify/features/cart/presentation/widgets/cart_item_tile.dart';
+import 'package:grocify/features/cart/data/cart_provider.dart';
 
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});

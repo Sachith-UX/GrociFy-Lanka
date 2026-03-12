@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../shared/widgets/custom_button.dart';
 import 'widgets/profile_menu_item.dart';
-import 'data/profile_provider.dart';
+import '../data/profile_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -82,7 +82,13 @@ class ProfileScreen extends ConsumerWidget {
             radius: 40,
             backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
             child: Text(
-              state.user?.name.substring(0, 1).toUpperCase() ?? 'U',
+              () {
+                final name = state.user?.name;
+                if (name != null && name.isNotEmpty) {
+                  return name.substring(0, 1).toUpperCase();
+                }
+                return 'U';
+              }(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
@@ -116,7 +122,7 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(height: AppSizes.xs),
 
                 Text(
-                  state.user?.phone ?? '+94 XX XXX XXXX',
+                  state.user?.phoneNumber ?? '+94 XX XXX XXXX',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),

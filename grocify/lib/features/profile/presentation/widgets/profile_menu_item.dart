@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_sizes.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   const ProfileMenuItem({

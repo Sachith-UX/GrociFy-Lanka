@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../shared/models/product_model.dart';
-import '../../../../shared/widgets/product_card.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/shared/models/product_model.dart';
+import 'package:grocify/shared/widgets/product_card.dart';
 
 class DealsSection extends StatelessWidget {
   const DealsSection({super.key});

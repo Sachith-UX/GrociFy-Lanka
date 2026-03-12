@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/widgets/empty_state.dart';
-import '../../../shared/widgets/loading_shimmer.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/shared/widgets/empty_state.dart';
+import 'package:grocify/shared/widgets/loading_shimmer.dart';
 import 'widgets/notification_item.dart';
-import 'data/notifications_provider.dart';
+import 'package:grocify/features/notifications/data/notifications_provider.dart';
 
 class NotificationsScreen extends ConsumerWidget {
   const NotificationsScreen({super.key});
@@ -28,14 +27,8 @@ class NotificationsScreen extends ConsumerWidget {
         ],
       ),
       body: notificationsState.isLoading
-          ? const LoadingShimmer(
-              child: Column(
-                children: [
-                  NotificationItemSkeleton(),
-                  NotificationItemSkeleton(),
-                  NotificationItemSkeleton(),
-                ],
-              ),
+          ? ListShimmer(
+              itemBuilder: (context, index) => const NotificationItemSkeleton(),
             )
           : notificationsState.error != null
               ? Center(

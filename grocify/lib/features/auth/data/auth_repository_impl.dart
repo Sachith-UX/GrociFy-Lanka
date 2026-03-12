@@ -1,56 +1,67 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../shared/models/user_model.dart';
-import 'auth_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:grocify/shared/models/user_model.dart';
+import 'package:grocify/features/auth/domain/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuth _firebaseAuth;
+  final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
 
   AuthRepositoryImpl({
-    FirebaseAuth? firebaseAuth,
+    firebase_auth.FirebaseAuth? firebaseAuth,
     FirebaseFirestore? firestore,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _firestore = firestore ?? FirebaseFirestore.instance;
 
   @override
-  Future<void> sendOTP(String phoneNumber) async {
+  Future<void> sendOTP({
+    required String phoneNumber,
+    required Function(String verificationId) onCodeSent,
+    required Function(firebase_auth.FirebaseAuthException e) onVerificationFailed,
+  }) async {
     await _firebaseAuth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      verificationCompleted: (PhoneAuthCredential credential) async {
+      verificationCompleted: (firebase_auth.PhoneAuthCredential credential) async {
         // Auto-verification on Android
         await _firebaseAuth.signInWithCredential(credential);
       },
-      verificationFailed: (FirebaseAuthException e) {
-        throw Exception('Verification failed: ${e.message}');
-      },
+      verificationFailed: onVerificationFailed,
       codeSent: (String verificationId, int? resendToken) {
-        // Store verificationId for later use
-        // This would be handled by the provider
+        onCodeSent(verificationId);
       },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        // Handle timeout
-      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
     );
   }
 
   @override
-  Future<User> verifyOTP(String otp) async {
-    // This would need the verificationId from sendOTP
-    // For simplicity, assuming it's handled by the provider
-    throw UnimplementedError('verifyOTP needs verificationId from sendOTP');
+  Future<User> verifyOTP({
+    required String verificationId,
+    required String otp,
+  }) async {
+    final credential = firebase_auth.PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: otp,
+    );
+
+    final userCredential = await _firebaseAuth.signInWithCredential(credential);
+    final firebaseUser = userCredential.user;
+
+    if (firebaseUser == null) {
+      throw Exception('Failed to sign in');
+    }
+
+    return await getCurrentUser();
   }
 
   @override
   Future<User> getCurrentUser() async {
-    final firebaseUser = _firebaseAuth.currentUser;
+    final firebase_auth.User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser == null) {
       throw Exception('No user logged in');
     }
 
     final userDoc = await _firestore.collection('users').doc(firebaseUser.uid).get();
     if (!userDoc.exists) {
-      // Create new user document
       final newUser = User(
         id: firebaseUser.uid,
         phoneNumber: firebaseUser.phoneNumber ?? '',

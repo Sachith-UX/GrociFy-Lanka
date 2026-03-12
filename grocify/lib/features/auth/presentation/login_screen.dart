@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/constants/app_sizes.dart';
-import '../../core/constants/app_strings.dart';
-import '../../core/utils/validators.dart';
-import '../../shared/widgets/custom_button.dart';
-import '../../shared/widgets/custom_text_field.dart';
-import '../auth/data/auth_provider.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/constants/app_strings.dart';
+import 'package:grocify/core/utils/validators.dart';
+import 'package:grocify/shared/widgets/custom_button.dart';
+import 'package:grocify/shared/widgets/custom_text_field.dart';
+import 'package:grocify/features/auth/data/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -32,11 +32,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final phoneNumber = '+94${_phoneController.text}';
-      await ref.read(authProvider.notifier).sendOTP(phoneNumber);
+      String rawPhone = _phoneController.text.trim();
+      // Remove leading zero if present
+      if (rawPhone.startsWith('0')) {
+        rawPhone = rawPhone.substring(1);
+      }
+      // Ensure it doesn't already have +94
+      if (rawPhone.startsWith('+94')) {
+        // keep as is
+      } else if (rawPhone.startsWith('94')) {
+        rawPhone = '+$rawPhone';
+      } else {
+        rawPhone = '+94$rawPhone';
+      }
+
+      await ref.read(authProvider.notifier).sendOTP(rawPhone);
 
       if (mounted) {
-        context.go('/otp', extra: phoneNumber);
+        context.go('/otp', extra: rawPhone);
       }
     } catch (e) {
       if (mounted) {
@@ -91,19 +104,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   label: AppStrings.phoneNumber,
                   hint: '712345678',
                   keyboardType: TextInputType.phone,
-                  prefixIcon: const Icon(Icons.phone),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text('+94 ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  ),
+                  prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
                   validator: (value) {
-                    final phoneValidation = Validators.validatePhoneNumber(value);
-                    if (phoneValidation != null) return phoneValidation;
-
-                    // Remove country code for validation
-                    final cleanNumber = value!.startsWith('+94')
-                        ? value.substring(3)
-                        : value.startsWith('0')
-                            ? value.substring(1)
-                            : value;
-
-                    return Validators.validatePhoneNumber(cleanNumber);
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter phone number';
+                    }
+                    // Basic validation for Sri Lankan mobile number (9 digits after 0)
+                    final cleanNumber = value.startsWith('0') ? value.substring(1) : value;
+                    if (cleanNumber.length != 9) {
+                      return 'Please enter a valid 9-digit number';
+                    }
+                    return null;
                   },
                 ),
 
@@ -119,12 +134,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: AppSizes.lg),
 
                 // Terms and conditions
-                Text(
-                  'By continuing, you agree to our Terms of Service and Privacy Policy',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                Center(
+                  child: Text(
+                    'By continuing, you agree to our Terms of Service and Privacy Policy',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

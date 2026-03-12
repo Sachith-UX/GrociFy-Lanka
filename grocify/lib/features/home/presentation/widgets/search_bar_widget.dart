@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/constants/app_sizes.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});

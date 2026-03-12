@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
-import '../../core/constants/app_sizes.dart';
-import '../../core/constants/app_strings.dart';
-import '../../shared/widgets/custom_button.dart';
-import '../auth/data/auth_provider.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/shared/widgets/custom_button.dart';
+import 'package:grocify/features/auth/data/auth_provider.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
   const OtpScreen({super.key});

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import '../../../shared/models/user_model.dart';
 import 'auth_repository_impl.dart';
 
@@ -47,8 +48,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      await _authRepository.sendOTP(phoneNumber);
-      state = state.copyWith(isLoading: false);
+      await _authRepository.sendOTP(
+        phoneNumber: phoneNumber,
+        onCodeSent: (verificationId) {
+          state = state.copyWith(isLoading: false, verificationId: verificationId);
+        },
+        onVerificationFailed: (e) {
+          state = state.copyWith(isLoading: false, error: e.message);
+        },
+      );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
       rethrow;
@@ -63,7 +71,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final user = await _authRepository.verifyOTP(otp);
+      final user = await _authRepository.verifyOTP(
+        verificationId: state.verificationId!,
+        otp: otp,
+      );
       state = state.copyWith(user: user, isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -85,7 +96,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
         profilePhotoUrl: profilePhotoUrl,
       );
 
-      // Refresh user data
       final updatedUser = await _authRepository.getCurrentUser();
       state = state.copyWith(user: updatedUser, isLoading: false);
     } catch (e) {

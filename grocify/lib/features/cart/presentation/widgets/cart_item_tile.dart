@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/utils/formatters.dart';
-import '../../../shared/models/cart_item_model.dart';
+import 'package:grocify/core/constants/app_sizes.dart';
+import 'package:grocify/core/utils/formatters.dart';
+import 'package:grocify/shared/models/cart_item_model.dart';
 
 class CartItemTile extends StatelessWidget {
   const CartItemTile({

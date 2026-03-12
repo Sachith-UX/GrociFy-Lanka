@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../shared/models/order_model.dart';
+import 'package:grocify/shared/models/address_model.dart';
+import 'package:grocify/shared/models/order_model.dart';
 
 class OrdersState {
-  final List<OrderModel> orders;
+  final List<Order> orders;
   final bool isLoading;
   final String? error;
 
@@ -13,7 +14,7 @@ class OrdersState {
   });
 
   OrdersState copyWith({
-    List<OrderModel>? orders,
+    List<Order>? orders,
     bool? isLoading,
     String? error,
   }) {
@@ -38,37 +39,93 @@ class OrdersNotifier extends StateNotifier<OrdersState> {
       await Future.delayed(const Duration(seconds: 2));
 
       // Mock data
+      final dummyAddress = Address(
+        id: 'addr1',
+        userId: 'user1',
+        name: 'Home',
+        phoneNumber: '+94123456789',
+        addressLine1: '123 Main St',
+        addressLine2: 'Apt 4B',
+        city: 'Colombo',
+        postalCode: '00100',
+        latitude: 6.9271,
+        longitude: 79.8612,
+        isDefault: true,
+        instructions: 'Leave by the door',
+        createdAt: DateTime.now().subtract(const Duration(days: 10)),
+        updatedAt: DateTime.now().subtract(const Duration(days: 1)),
+      );
+
       final mockOrders = [
-        OrderModel(
+        Order(
           id: '123456',
           userId: 'user1',
-          items: const [], // TODO: Add order items
-          totalAmount: 45.99,
+          items: [
+            OrderItem(
+              productId: 'p1',
+              productName: 'Apples',
+              productImageUrl: 'assets/images/apple.png',
+              price: 250.0,
+              quantity: 2,
+              total: 500.0,
+            ),
+          ],
+          subtotal: 500.0,
+          tax: 25.0,
+          deliveryFee: 5.0,
+          total: 530.0,
           status: OrderStatus.delivered,
+          deliveryAddress: dummyAddress,
+          notes: 'Leave by the door',
           createdAt: DateTime.now().subtract(const Duration(days: 2)),
+          updatedAt: DateTime.now().subtract(const Duration(days: 1)),
           deliveredAt: DateTime.now().subtract(const Duration(days: 1)),
-          deliveryAddress: '123 Main St, Colombo',
-          paymentMethod: 'Cash on Delivery',
         ),
-        OrderModel(
+        Order(
           id: '123457',
           userId: 'user1',
-          items: const [], // TODO: Add order items
-          totalAmount: 32.50,
+          items: [
+            OrderItem(
+              productId: 'p2',
+              productName: 'Bananas',
+              productImageUrl: 'assets/images/banana.png',
+              price: 180.0,
+              quantity: 3,
+              total: 540.0,
+            ),
+          ],
+          subtotal: 540.0,
+          tax: 27.0,
+          deliveryFee: 5.0,
+          total: 572.0,
           status: OrderStatus.outForDelivery,
+          deliveryAddress: dummyAddress,
+          notes: null,
           createdAt: DateTime.now().subtract(const Duration(hours: 5)),
-          deliveryAddress: '456 Oak Ave, Colombo',
-          paymentMethod: 'Credit Card',
+          updatedAt: DateTime.now().subtract(const Duration(hours: 5)),
         ),
-        OrderModel(
+        Order(
           id: '123458',
           userId: 'user1',
-          items: const [], // TODO: Add order items
-          totalAmount: 28.75,
+          items: [
+            OrderItem(
+              productId: 'p3',
+              productName: 'Milk',
+              productImageUrl: 'assets/images/milk.png',
+              price: 320.0,
+              quantity: 1,
+              total: 320.0,
+            ),
+          ],
+          subtotal: 320.0,
+          tax: 16.0,
+          deliveryFee: 5.0,
+          total: 341.0,
           status: OrderStatus.preparing,
+          deliveryAddress: dummyAddress,
+          notes: null,
           createdAt: DateTime.now().subtract(const Duration(hours: 2)),
-          deliveryAddress: '789 Pine St, Colombo',
-          paymentMethod: 'UPI',
+          updatedAt: DateTime.now().subtract(const Duration(hours: 2)),
         ),
       ];
 
